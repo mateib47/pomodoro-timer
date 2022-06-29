@@ -1,0 +1,17 @@
+.topbar {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background-color: #403d3d;
+    color: #f6f6f6;
+    width: 100%;
+    height: 70px;
+    position: fixed;
+    top: 0;
+    left: 0;
+  
+    .wrapper {
+      padding: 10px 30px;
+      margin-left: 30px;
+    }
+  }

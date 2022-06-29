@@ -1,7 +1,8 @@
 import "./app.scss";
-import TimerBox from "./components/TimerBox";
+import TimerBox from "./containers/TimerBox/TimerBox";
+import Topbar from "./containers/Topbar/Topbar";
 import { useState, useEffect } from "react";
-import Topbar from "./components/Topbar/Topbar";
+
 
 
 const App = () => {
@@ -13,7 +14,7 @@ const App = () => {
   useEffect(() => {
    if (seconds <= 0){
     setSeconds(59);
-    setMinutes(minutes-1):
+    setMinutes(minutes-1);
    }
    
 }, [seconds]);

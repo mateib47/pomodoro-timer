@@ -1,0 +1,19 @@
+@import "../../global.scss";
+
+
+.timerBox{
+    background-color: goldenrod;
+    width: 40vw;
+    height: 65vh;
+    font-size: 35px;
+    text-align: center;
+    .wrapper{
+        display: flex;
+        .session{
+            flex:1;
+        }
+        .break{
+            flex:1;
+        }
+    }
+}
