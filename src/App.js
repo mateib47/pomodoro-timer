@@ -8,16 +8,16 @@ import { useState, useEffect } from "react";
 const App = () => {
 
   const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(20);
+  const [minutes, setMinutes] = useState(25);
   const [hours, setHours] = useState(0);
 
-  useEffect(() => {
-   if (seconds <= 0){
-    setSeconds(59);
-    setMinutes(minutes-1);
-   }
+//   useEffect(() => {
+//    if (seconds <= 0){
+//     setSeconds(59);
+//     setMinutes(minutes-1);
+//    }
    
-}, [seconds]);
+// }, [seconds]);
 
   return (
     <div className="app">
