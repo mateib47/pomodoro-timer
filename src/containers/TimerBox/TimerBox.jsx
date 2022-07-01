@@ -1,13 +1,13 @@
 import "./timerbox.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const TimerBox = ({
   minutes,
   seconds,
-  // hours,
+  isRunning,
   setMinutes,
   setSeconds,
-  // setHours,
+  setIsRunning,
 }) => {
   const [breakTime, setBreakTime] = useState(5);
   const [sessionTime, setSessionTime] = useState(25);
@@ -17,6 +17,7 @@ const TimerBox = ({
     setSessionTime(25);
     setMinutes(25);
     setSeconds(0);
+    setIsRunning(false);
   };
 
   const getFormattedTime = () => {
@@ -35,15 +36,38 @@ const TimerBox = ({
     return s;
   };
 
-  const startTimer = () => {
-    while(minutes > 0){
-        setTimeout(function () {
-            if (seconds <= 0) {
+  useEffect(() => {
+    if (isRunning){
+        const timer = setTimeout(() => {
+            if (seconds == 0 && minutes == 0){
+                setMinutes = breakTime;
+                setSeconds = 0;
+            }
+           else if (seconds <= 0) {
               setSeconds(59);
+              setMinutes (minutes - 1);
             } else {
               setSeconds(seconds - 1);
             }
           }, 1000);
+      
+          return () => clearTimeout(timer);
+    }
+  });
+
+  const startTimer = () => {
+    setIsRunning(true);
+    for (let i = 0; i < 20; i++) {
+      console.log(i);
+      setTimeout(function () {
+        console.log(i);
+
+        if (seconds <= 0) {
+          setSeconds(59);
+        } else {
+          setSeconds(seconds - 1);
+        }
+      }, 1000 * i);
     }
   };
 
@@ -55,14 +79,14 @@ const TimerBox = ({
         <button
           id="start_stop"
           onClick={() => {
-            startTimer();
+            setIsRunning(!isRunning);
           }}
         >
           {" "}
           start / stop
         </button>
         <button
-          id="start_stop"
+          id="reset"
           onClick={() => {
             handleReset();
           }}

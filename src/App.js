@@ -10,6 +10,7 @@ const App = () => {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(25);
   const [hours, setHours] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
 
 //   useEffect(() => {
 //    if (seconds <= 0){
@@ -26,10 +27,10 @@ const App = () => {
         <TimerBox
           minutes={minutes}
           seconds={seconds}
-          hours={hours}
+          isRunning={isRunning}
           setMinutes={setMinutes}
           setSeconds={setSeconds}
-          setHours={setHours}
+          setIsRunning={setIsRunning}
         />
       </div>
     </div>
