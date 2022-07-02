@@ -11,13 +11,14 @@ const TimerBox = ({
 }) => {
   const [breakTime, setBreakTime] = useState(5);
   const [sessionTime, setSessionTime] = useState(25);
+  const [isSession, setIsSession] = useState(true);
 
   const handleReset = () => {
+    setIsRunning(false);
     setBreakTime(5);
     setSessionTime(25);
     setMinutes(25);
     setSeconds(0);
-    setIsRunning(false);
   };
 
   const getFormattedTime = () => {
@@ -40,8 +41,9 @@ const TimerBox = ({
     if (isRunning){
         const timer = setTimeout(() => {
             if (seconds == 0 && minutes == 0){
-                setMinutes = breakTime;
+                setMinutes(breakTime);
                 setSeconds = 0;
+                setIsSession(!isSession);
             }
            else if (seconds <= 0) {
               setSeconds(59);
@@ -54,6 +56,12 @@ const TimerBox = ({
           return () => clearTimeout(timer);
     }
   });
+
+  useEffect(() => {
+    setSeconds(0);
+    setMinutes(sessionTime);
+  }, [sessionTime])
+  
 
   const startTimer = () => {
     setIsRunning(true);
@@ -76,6 +84,7 @@ const TimerBox = ({
       <div id="timer-label">
         <h1>Session</h1>
         <div id="time-left">{getFormattedTime()}</div>
+        <h3 id="timer-label">{isSession && isRunning ? "Session has begun" : "Break has begun"}</h3>
         <button
           id="start_stop"
           onClick={() => {
@@ -102,7 +111,7 @@ const TimerBox = ({
           <button
             id="break-decrement"
             onClick={() => {
-              if (breakTime > 0) setBreakTime(breakTime - 1);
+              if (breakTime > 0 && !isRunning) setBreakTime(breakTime - 1);
             }}
           >
             -
@@ -110,7 +119,7 @@ const TimerBox = ({
           <button
             id="break-increment"
             onClick={() => {
-              setBreakTime(breakTime + 1);
+                if (breakTime < 60 && !isRunning) setBreakTime(breakTime + 1);
             }}
           >
             +
@@ -122,7 +131,7 @@ const TimerBox = ({
           <button
             id="session-decrement"
             onClick={() => {
-              if (sessionTime > 0) setSessionTime(sessionTime - 1);
+              if (sessionTime > 0 && !isRunning) setSessionTime(sessionTime - 1);
             }}
           >
             -
@@ -130,7 +139,7 @@ const TimerBox = ({
           <button
             id="session-increment"
             onClick={() => {
-              setSessionTime(sessionTime + 1);
+                if (sessionTime < 60 && !isRunning) setSessionTime(sessionTime + 1);
             }}
           >
             +
