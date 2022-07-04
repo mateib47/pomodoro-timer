@@ -14,18 +14,21 @@ const Timer = ({
 }) => {
   const [timerState, setTimerState] = useState(0);
 
+console.log(minutes);
+
   useEffect(() => {
     if (isRunning) {
       const timer = setTimeout(() => {
         if (seconds == 0 && minutes == 0) {
-            if (timerState == 3){
-                          setMinutes(breakTime);
-                          setTimerState(4);
-
-            }else{
-                setMinutes(sessionTime);
-                setTimerState(3);
-            }
+          if (timerState == 3) {
+            playSound();
+            setMinutes(breakTime);
+            setTimerState(4);
+          } else {
+            playSound();
+            setMinutes(sessionTime);
+            setTimerState(3);
+          }
           setSeconds = 0;
         } else if (seconds <= 0) {
           setSeconds(59);
@@ -38,6 +41,12 @@ const Timer = ({
       return () => clearTimeout(timer);
     }
   });
+
+  const playSound = () => {
+    const soundElem = document.getElementById("beep");
+    soundElem.currentTime = 0;
+    soundElem.play();
+  };
 
   const getFormattedTime = () => {
     let s = "";
@@ -52,6 +61,7 @@ const Timer = ({
     } else {
       s += seconds;
     }
+    //console.log(s);
     return s;
   };
 
@@ -76,15 +86,15 @@ const Timer = ({
     if (timerState == 0 && isRunning) {
       setTimerState(3);
       return;
-    } else if (timerState == 0 && !isRunning){
-        return;
+    } else if (timerState == 0 && !isRunning) {
+      return;
     }
     if (!isRunning) {
       timerState == 3 ? setTimerState(1) : setTimerState(2);
-    }else{
-        timerState == 1 ? setTimerState(3) : setTimerState(4);
+    } else {
+      timerState == 1 ? setTimerState(3) : setTimerState(4);
     }
-  },[isRunning]);
+  }, [isRunning]);
 
   return (
     <div id="timer-label">
@@ -95,7 +105,6 @@ const Timer = ({
         id="start_stop"
         onClick={() => {
           setIsRunning(!isRunning);
-
         }}
       >
         {" "}
@@ -111,6 +120,7 @@ const Timer = ({
         {" "}
         reset
       </button>
+      <audio autoPlay src={require(`../../sounds/beep.wav`)} id="beep"></audio>
     </div>
   );
 };
