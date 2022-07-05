@@ -97,7 +97,7 @@ console.log(minutes);
   }, [isRunning]);
 
   return (
-    <div id="timer-label">
+    <div>
       <h1>Session</h1>
       <div id="time-left">{getFormattedTime()}</div>
       <h3 id="timer-label">{getLabel()}</h3>

@@ -10,9 +10,10 @@ const TimerBox = ({
   setMinutes,
   setSeconds,
   setIsRunning,
+  setSessionTime,
+  sessionTime
 }) => {
   const [breakTime, setBreakTime] = useState(5);
-  const [sessionTime, setSessionTime] = useState(25);
 
   
 
@@ -46,7 +47,7 @@ const TimerBox = ({
       />
       <div className="wrapper">
         <LengthSetter name={"break"}  time={breakTime} setTime={setBreakTime} isRunning={isRunning} />
-        <LengthSetter name={"session"}  time={sessionTime} setTime={setSessionTime} isRunning={isRunning} />
+        
       </div>
     </div>
   );

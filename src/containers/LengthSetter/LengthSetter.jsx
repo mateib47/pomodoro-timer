@@ -17,6 +17,7 @@ const LengthSetter = ({name, time, setTime, isRunning}) => {
             id={name +"-increment"}
             onClick={() => {
               if (time < 60 && !isRunning) setTime(time + 1);
+              console.log("cacta");
             }}
           >
             +
