@@ -48,6 +48,12 @@ console.log(minutes);
     soundElem.play();
   };
 
+  const stopSound = () => {
+    const soundElem = document.getElementById("beep");
+    soundElem.currentTime = 0;
+    soundElem.pause();
+  };
+
   const getFormattedTime = () => {
     let s = "";
     if (minutes.toString().length == 1) {
@@ -106,15 +112,15 @@ console.log(minutes);
         onClick={() => {
           setIsRunning(!isRunning);
         }}
-      >
-        {" "}
-        start / stop
+      >&#9658;
+        {isRunning ? `` : "start"}
       </button>
       <button
         id="reset"
         onClick={() => {
           handleReset();
           setTimerState(0);
+          stopSound();
         }}
       >
         {" "}

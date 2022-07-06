@@ -8,7 +8,7 @@ const LengthSetter = ({name, time, setTime, isRunning}) => {
           <button
             id={name + "-decrement"}
             onClick={() => {
-              if (time > 0 && !isRunning) setTime(time - 1);
+              if (time > 1 && !isRunning) setTime(time - 1);
             }}
           >
             -

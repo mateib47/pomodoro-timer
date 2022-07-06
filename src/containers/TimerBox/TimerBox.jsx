@@ -6,15 +6,12 @@ import LengthSetter from "../LengthSetter/LengthSetter";
 const TimerBox = ({
   minutes,
   seconds,
-  isRunning,
   setMinutes,
   setSeconds,
-  setIsRunning,
-  setSessionTime,
-  sessionTime
 }) => {
   const [breakTime, setBreakTime] = useState(5);
-
+  const [isRunning, setIsRunning] = useState(false);
+  const [sessionTime, setSessionTime] = useState(25);
   
 
   useEffect(() => {
@@ -47,7 +44,8 @@ const TimerBox = ({
       />
       <div className="wrapper">
         <LengthSetter name={"break"}  time={breakTime} setTime={setBreakTime} isRunning={isRunning} />
-        
+        <LengthSetter name={"session"}  time={sessionTime} setTime={setSessionTime} isRunning={isRunning} />
+
       </div>
     </div>
   );
