@@ -9,6 +9,7 @@
     text-align: center;
     .wrapper{
         display: flex;
+        flex-direction: column;
         .session{
             flex:1;
         }

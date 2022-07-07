@@ -1,5 +1,5 @@
 import "./timer.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const Timer = ({
   minutes,
@@ -13,21 +13,25 @@ const Timer = ({
   sessionTime,
 }) => {
   const [timerState, setTimerState] = useState(0);
+  const soundElem = document.getElementById("beep");
 
-console.log(minutes);
+  const audioElem = useRef(new Audio(`../../sounds/beep.wav`));
 
   useEffect(() => {
     if (isRunning) {
       const timer = setTimeout(() => {
         if (seconds == 0 && minutes == 0) {
+          playSound();
           if (timerState == 3) {
-            playSound();
-            setMinutes(breakTime);
-            setTimerState(4);
+            setTimeout(() => {
+              setMinutes(breakTime);
+              setTimerState(4);
+            }, 1000);
           } else {
-            playSound();
-            setMinutes(sessionTime);
-            setTimerState(3);
+            setTimeout(() => {
+              setMinutes(sessionTime);
+              setTimerState(3);
+            }, 1000);
           }
           setSeconds = 0;
         } else if (seconds <= 0) {
@@ -43,15 +47,19 @@ console.log(minutes);
   });
 
   const playSound = () => {
-    const soundElem = document.getElementById("beep");
-    soundElem.currentTime = 0;
+    if(soundElem){
+            soundElem.currentTime = 0;
     soundElem.play();
+    }
+
   };
 
   const stopSound = () => {
-    const soundElem = document.getElementById("beep");
-    soundElem.currentTime = 0;
+    if(soundElem){
+            soundElem.currentTime = 0;
     soundElem.pause();
+    }
+
   };
 
   const getFormattedTime = () => {
@@ -112,8 +120,8 @@ console.log(minutes);
         onClick={() => {
           setIsRunning(!isRunning);
         }}
-      >&#9658;
-        {isRunning ? `` : "start"}
+      >
+        {isRunning ? "pause" : "start"}
       </button>
       <button
         id="reset"
@@ -126,7 +134,7 @@ console.log(minutes);
         {" "}
         reset
       </button>
-      <audio autoPlay src={require(`../../sounds/beep.wav`)} id="beep"></audio>
+      <audio ref={audioElem} autoPlay src={require(`../../sounds/beep.wav`)} id="beep"></audio>
     </div>
   );
 };
