@@ -1,7 +1,7 @@
 import "./timer.scss";
 import { useState, useEffect, useRef } from "react";
-
-const Timer = ({
+import { useImperativeHandle } from "react";
+const Timer = ({ref,
   minutes,
   seconds,
   isRunning,
@@ -14,6 +14,10 @@ const Timer = ({
 }) => {
   const [timerState, setTimerState] = useState(0);
   const soundElem = document.getElementById("beep");
+
+  useEffect(() => {
+    ref.current = { timerState }
+  }, [timerState])
 
   const audioElem = useRef(new Audio(`../../sounds/beep.wav`));
 
@@ -47,19 +51,26 @@ const Timer = ({
   });
 
   const playSound = () => {
-    if(soundElem){
-            soundElem.currentTime = 0;
-    soundElem.play();
+    if (soundElem) {
+      soundElem.currentTime = 0;
+     
+      var playPromise = soundElem.play();
+ 
+  if (playPromise !== undefined) {
+    playPromise.then(_ => {
+      soundElem.pause();
+    })
+    .catch(error => {
+    });
+  }
     }
-
   };
 
   const stopSound = () => {
-    if(soundElem){
-            soundElem.currentTime = 0;
-    soundElem.pause();
+    if (soundElem) {
+      soundElem.currentTime = 0;
+      soundElem.pause();
     }
-
   };
 
   const getFormattedTime = () => {
@@ -134,7 +145,12 @@ const Timer = ({
         {" "}
         reset
       </button>
-      <audio ref={audioElem} autoPlay src={require(`../../sounds/beep.wav`)} id="beep"></audio>
+      <audio
+        ref={audioElem}
+        autoPlay
+        src={require(`../../sounds/beep.wav`)}
+        id="beep"
+      ></audio>
     </div>
   );
 };

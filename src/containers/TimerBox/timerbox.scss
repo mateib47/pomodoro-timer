@@ -2,7 +2,17 @@
 
 
 .timerBox{
-    background-color: goldenrod;
+    .pauseCol{
+        background-color: grey;
+    }
+    .breakCol{
+        background-color: #2ABFBF;
+
+    }
+    .sessionCol{
+        background-color: #F2B705;
+
+    }
     width: 40vw;
     height: 65vh;
     font-size: 35px;

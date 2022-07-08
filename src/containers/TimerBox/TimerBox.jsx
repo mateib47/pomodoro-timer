@@ -1,5 +1,5 @@
 import "./timerbox.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Timer from "../Timer/Timer";
 import LengthSetter from "../LengthSetter/LengthSetter";
 
@@ -12,6 +12,8 @@ const TimerBox = ({
   const [breakTime, setBreakTime] = useState(5);
   const [isRunning, setIsRunning] = useState(false);
   const [sessionTime, setSessionTime] = useState(25);
+
+  const timerState = useRef({});
   
 
   useEffect(() => {
@@ -27,11 +29,25 @@ const TimerBox = ({
     setMinutes(25);
     setSeconds(0);
   };
- 
+
+  const getBackgroundColor = () => {
+    if (isRunning){
+      console.log(timerState.current);
+      if (timerState.current == 3){
+        return "sessionCol";
+      }else{
+        return "breakCol";
+      }
+    }else{
+      return "pauseCol";
+    }
+  }
+  const classes = `timerBox ${getBackgroundColor()}`
 
   return (
-    <div className="timerBox">
+    <div className={classes}>
       <Timer
+      ref={timerState}
         minutes={minutes}
         seconds={seconds}
         isRunning={isRunning}
