@@ -1,7 +1,7 @@
 import "./timer.scss";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, forwardRef } from "react";
 import { useImperativeHandle } from "react";
-const Timer = ({ref,
+const Timer = forwardRef(({ref,
   minutes,
   seconds,
   isRunning,
@@ -11,13 +11,20 @@ const Timer = ({ref,
   handleReset,
   breakTime,
   sessionTime,
-}) => {
+},_ref) => {
   const [timerState, setTimerState] = useState(0);
   const soundElem = document.getElementById("beep");
 
-  useEffect(() => {
-    ref.current = { timerState }
-  }, [timerState])
+//   useEffect(() => {
+//     ref.current =  timerState 
+//   }, [timerState])
+
+  useImperativeHandle(_ref, () => ({
+    getState: () => {
+        return timerState;
+    }
+  }), [timerState])
+
 
   const audioElem = useRef(new Audio(`../../sounds/beep.wav`));
 
@@ -153,6 +160,6 @@ const Timer = ({ref,
       ></audio>
     </div>
   );
-};
+});
 
 export default Timer;

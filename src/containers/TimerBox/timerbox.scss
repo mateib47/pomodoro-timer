@@ -1,30 +1,34 @@
 @import "../../global.scss";
 
+.timerBox {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 
-.timerBox{
-    .pauseCol{
-        background-color: grey;
-    }
-    .breakCol{
-        background-color: #2ABFBF;
-
-    }
-    .sessionCol{
-        background-color: #F2B705;
-
-    }
+  .box {
     width: 40vw;
     height: 65vh;
     font-size: 35px;
     text-align: center;
-    .wrapper{
-        display: flex;
-        flex-direction: column;
-        .session{
-            flex:1;
-        }
-        .break{
-            flex:1;
-        }
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      .session {
+        flex: 1;
+      }
+      .break {
+        flex: 1;
+      }
     }
+  }
+}
+.pauseCol {
+  background-color: grey;
+}
+.breakCol {
+  background-color: #2abfbf;
+}
+.sessionCol {
+  background-color: #f2b705;
 }

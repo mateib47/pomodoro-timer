@@ -13,7 +13,7 @@ const TimerBox = ({
   const [isRunning, setIsRunning] = useState(false);
   const [sessionTime, setSessionTime] = useState(25);
 
-  const timerState = useRef({});
+  const timerState = useRef();
   
 
   useEffect(() => {
@@ -32,8 +32,8 @@ const TimerBox = ({
 
   const getBackgroundColor = () => {
     if (isRunning){
-      console.log(timerState.current);
-      if (timerState.current == 3){
+      console.log(timerState.current.getState());
+      if (timerState.current.getState() == 3){
         return "sessionCol";
       }else{
         return "breakCol";
@@ -42,12 +42,13 @@ const TimerBox = ({
       return "pauseCol";
     }
   }
-  const classes = `timerBox ${getBackgroundColor()}`
+  const classes = `box ${getBackgroundColor()}`
 
   return (
     <div className={classes}>
+<div className="box">
       <Timer
-      ref={timerState}
+        ref={timerState}
         minutes={minutes}
         seconds={seconds}
         isRunning={isRunning}
@@ -64,6 +65,9 @@ const TimerBox = ({
 
       </div>
     </div>
+
+    </div>
+    
   );
 };
 
