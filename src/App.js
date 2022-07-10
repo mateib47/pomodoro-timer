@@ -3,22 +3,9 @@ import TimerBox from "./containers/TimerBox/TimerBox";
 import Topbar from "./containers/Topbar/Topbar";
 import { useState, useEffect } from "react";
 
-
-
 const App = () => {
-
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(25);
-  const [hours, setHours] = useState(0);
-
-
-//   useEffect(() => {
-//    if (seconds <= 0){
-//     setSeconds(59);
-//     setMinutes(minutes-1);
-//    }
-   
-// }, [seconds]);
 
   return (
     <div className="app">
