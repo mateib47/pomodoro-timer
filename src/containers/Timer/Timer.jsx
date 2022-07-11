@@ -10,7 +10,6 @@ import { Typography } from "@mui/material";
 const Timer = forwardRef(
   (
     {
-      ref,
       minutes,
       seconds,
       isRunning,
@@ -24,7 +23,7 @@ const Timer = forwardRef(
     _ref
   ) => {
     const [timerState, setTimerState] = useState(0);
-    const soundElem = document.getElementById("beep");
+    //const soundElem = document.getElementById("beep");
 
     useImperativeHandle(
       _ref,
@@ -36,7 +35,7 @@ const Timer = forwardRef(
       [timerState]
     );
 
-    const audioElem = useRef();
+    const soundElem = useRef();
 
     useEffect(() => {
       if (isRunning) {
@@ -44,15 +43,15 @@ const Timer = forwardRef(
           if (seconds == 0 && minutes == 0) {
             playSound();
             if (timerState == 3) {
-              setTimeout(() => {
+             // setTimeout(() => {
                 setMinutes(breakTime);
                 setTimerState(4);
-              }, 1000);
+             // }, 1000);
             } else {
-              setTimeout(() => {
+             // setTimeout(() => {
                 setMinutes(sessionTime);
                 setTimerState(3);
-              }, 1000);
+            //  }, 1000);
             }
             setSeconds = 0;
           } else if (seconds <= 0) {
@@ -68,25 +67,17 @@ const Timer = forwardRef(
     });
 
     const playSound = () => {
-      if (soundElem) {
-        soundElem.currentTime = 0;
-
-        var playPromise = soundElem.play();
-
-        if (playPromise !== undefined) {
-          playPromise
-            .then((_) => {
-              soundElem.pause();
-            })
-            .catch((error) => {});
-        }
+      console.log(soundElem);
+      if (soundElem.current) {
+        soundElem.current.currentTime = 0;
+        soundElem.current.play();
       }
     };
 
     const stopSound = () => {
-      if (soundElem) {
-        soundElem.currentTime = 0;
-        soundElem.pause();
+      if (soundElem.current) {
+        soundElem.current.currentTime = 0;
+        soundElem.current.pause();
       }
     };
 
@@ -140,7 +131,6 @@ const Timer = forwardRef(
 
     return (
       <div className="timer">
-        <Typography variant="h2">Session</Typography>
         <Typography id="time-left" variant="h1" sx={{ overflow: "hidden" }}>
           {getFormattedTime()}
         </Typography>
@@ -170,9 +160,9 @@ const Timer = forwardRef(
           <RestartAltIcon sx={{ fontSize: "45px" }} />
         </IconButton>
         <audio
-          ref={audioElem}
+          ref={soundElem}
           autoPlay
-          src={require(`../../sounds/beep.wav`)}
+          src={require(`../../sounds/beep2.mp3`)}
           id="beep"
         ></audio>
       </div>

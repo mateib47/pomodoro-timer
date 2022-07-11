@@ -2,11 +2,22 @@ import "./timerbox.scss";
 import { useState, useEffect, useRef } from "react";
 import Timer from "../Timer/Timer";
 import LengthSetter from "../LengthSetter/LengthSetter";
+import Stack from "@mui/material/Stack";
+import Slider from "@mui/material/Slider";
+import VolumeDown from "@mui/icons-material/VolumeDown";
+import VolumeUp from "@mui/icons-material/VolumeUp";
+import Box from "@mui/material/Box";
+import { Typography } from "@mui/material";
 
 const TimerBox = ({ minutes, seconds, setMinutes, setSeconds }) => {
   const [breakTime, setBreakTime] = useState(5);
   const [isRunning, setIsRunning] = useState(false);
   const [sessionTime, setSessionTime] = useState(25);
+  const [volume, setVolume] = useState(50);
+
+  const changeVolume = (event, newValue) => {
+    setVolume(newValue);
+  };
 
   const timerState = useRef();
 
@@ -72,6 +83,36 @@ const TimerBox = ({ minutes, seconds, setMinutes, setSeconds }) => {
             setTime={setSessionTime}
             isRunning={isRunning}
           />
+
+          <Box sx={{ width: 200 }}>
+            <Typography id="sound-label" variant="h5">
+              Notification Sound
+            </Typography>
+            <Stack
+              spacing={2}
+              direction="row"
+              sx={{ mb: 1 }}
+              alignItems="center"
+            >
+              <VolumeDown />
+              <Slider
+                aria-label="Volume"
+                value={volume}
+                onChange={changeVolume}
+                sx={{
+                  color: "#403d3d",
+                  padding: "30px 0",
+                  "& .MuiSlider-thumb": {
+                    overflow: "hidden",
+                    width: "12px",
+                    height: "12px",
+                    margin: "0 6px",
+                  },
+                }}
+              />
+              <VolumeUp />
+            </Stack>
+          </Box>
         </div>
       </div>
     </div>
