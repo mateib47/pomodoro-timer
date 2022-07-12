@@ -1,17 +1,17 @@
 .app {
-    font-family: "Roboto", sans-serif;
-    height: 100vh;
+  font-family: "Roboto", sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: #302b2b;
+
+  .section {
+    height: calc(100vh - 70px);
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-    justify-content: flex-end;
-    color: #302b2b;
-  
-    .section {
-      height: calc(100vh - 70px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      top: 70px;
-    }
+    top: 70px;
   }
+}

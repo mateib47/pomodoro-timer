@@ -36,7 +36,6 @@ const TimerBox = ({ minutes, seconds, setMinutes, setSeconds }) => {
 
   const getBackgroundColor = () => {
     if (isRunning) {
-      console.log(timerState.current.getState());
       if (timerState.current.getState() == 3) {
         return "sessionCol";
       } else if (timerState.current.getState() == 4) {

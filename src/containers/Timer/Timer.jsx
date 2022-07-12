@@ -38,20 +38,25 @@ const Timer = forwardRef(
     const soundElem = useRef();
 
     useEffect(() => {
+      if (seconds == 0 && minutes == 0) {
+        playSound();
+      }
+    });
+
+    useEffect(() => {
       if (isRunning) {
         const timer = setTimeout(() => {
           if (seconds == 0 && minutes == 0) {
-            playSound();
             if (timerState == 3) {
-             // setTimeout(() => {
+              setTimeout(() => {
                 setMinutes(breakTime);
                 setTimerState(4);
-             // }, 1000);
+              }, 1000);
             } else {
-             // setTimeout(() => {
+              setTimeout(() => {
                 setMinutes(sessionTime);
                 setTimerState(3);
-            //  }, 1000);
+              }, 1000);
             }
             setSeconds = 0;
           } else if (seconds <= 0) {
@@ -67,10 +72,13 @@ const Timer = forwardRef(
     });
 
     const playSound = () => {
-      console.log(soundElem);
       if (soundElem.current) {
-        soundElem.current.currentTime = 0;
-        soundElem.current.play();
+        let playPromise = soundElem.current.play();
+
+        if (playPromise !== undefined) {
+          soundElem.current.currentTime = 0;
+          playPromise.then((_) => {}).catch((error) => {});
+        }
       }
     };
 

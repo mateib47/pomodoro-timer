@@ -1,13 +1,13 @@
-import './topbar.scss'
+import "./topbar.scss";
 
 const Topbar = () => {
   return (
-    <div className='topbar'>
-        <div className="wrapper">
-            <h1>pomodoro timer.</h1>
-        </div>
+    <div className="topbar">
+      <div className="wrapper">
+        <h1>pomodoro timer.</h1>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Topbar
+export default Topbar;

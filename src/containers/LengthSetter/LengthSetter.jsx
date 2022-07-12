@@ -12,7 +12,6 @@ const LengthSetter = ({ name, time, setTime, isRunning }) => {
         {name.charAt(0).toUpperCase() + name.slice(1) + " Length"}
       </Typography>
       <div className="row">
-  
         <IconButton
           disabled={isRunning ? true : false}
           id={name + "-decrement"}
