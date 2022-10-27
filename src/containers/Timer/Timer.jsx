@@ -24,6 +24,7 @@ const Timer = forwardRef(
   ) => {
     const [timerState, setTimerState] = useState(0);
     const [permission, setPermission] = useState(false);
+    const [streak, setStreak] = useState(-1);
     useImperativeHandle(
       _ref,
       () => ({
@@ -33,6 +34,10 @@ const Timer = forwardRef(
       }),
       [timerState]
     );
+
+    useEffect(() => {
+      document.title = "Pomodoro timer - " + getFormattedTime();
+    }, [seconds]);
 
     const soundElem = useRef();
 
@@ -71,6 +76,7 @@ const Timer = forwardRef(
             if (timerState == 3) {
               setTimeout(() => {
                 notification("Well done, you can rest now.");
+                setStreak(streak + 1);
                 setMinutes(breakTime);
                 setTimerState(4);
               }, 1000);
@@ -164,6 +170,7 @@ const Timer = forwardRef(
       4 - pause running */
       if (timerState == 0 && isRunning) {
         setTimerState(3);
+        setStreak(0)
         return;
       } else if (timerState == 0 && !isRunning) {
         return;
@@ -181,7 +188,7 @@ const Timer = forwardRef(
           {getFormattedTime()}
         </Typography>
         <Typography id="timer-label" variant="subtitle1">
-          {getLabel()}
+          {streak == -1 ? getLabel() : getLabel() + " #" + streak}
         </Typography>
         <IconButton
           id="start_stop"
